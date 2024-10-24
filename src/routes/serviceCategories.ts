@@ -14,9 +14,27 @@ router.post("/", async (req, res) => {
     pictureUrl: req.body.pictureUrl,
   });
 
-  await newServiceCategory.save();
+  const savedServiceCategory = await newServiceCategory.save();
+  res.send(savedServiceCategory);
+});
 
-  res.send(newServiceCategory);
+router.patch("/:id", async (req, res) => {
+  const serviceCategory = await ServiceCategory.findById(req.params.id);
+
+  if (!serviceCategory) {
+    res.sendStatus(404);
+    return;
+  }
+
+  if (req.body.name) {
+    serviceCategory.name = req.body.name;
+  }
+  if (req.body.pictureUrl) {
+    serviceCategory.pictureUrl = req.body.pictureUrl;
+  }
+
+  const updatedServiceCategory = await serviceCategory.save();
+  res.send(updatedServiceCategory);
 });
 
 export default router;

@@ -14,9 +14,8 @@ router.post("/", async (req, res) => {
     serviceCategory: req.body.serviceCategory,
   });
 
-  await newServiceSubcategory.save();
-
-  res.send(newServiceSubcategory);
+  const savedServiceSubcategory = await newServiceSubcategory.save();
+  res.send(savedServiceSubcategory);
 });
 
 export default router;

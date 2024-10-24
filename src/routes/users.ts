@@ -13,9 +13,8 @@ router.post("/", async (req, res) => {
     name: req.body.name,
   });
 
-  await newUser.save();
-
-  res.send(newUser);
+  const savedUser = await newUser.save();
+  res.send(savedUser);
 });
 
 export default router;
