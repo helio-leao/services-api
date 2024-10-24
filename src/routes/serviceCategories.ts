@@ -1,11 +1,21 @@
 import { Router } from "express";
 import ServiceCategory from "../models/ServiceCategory";
+import ServiceSubcategory from "../models/ServiceSubcategory";
 
 const router = Router();
 
 router.get("/", async (_req, res) => {
-  const serviceCategories = await ServiceCategory.find({});
+  const serviceCategories = await ServiceCategory.find({}).sort({ name: 1 });
   res.send(serviceCategories);
+});
+
+router.get("/:id/serviceSubcategories", async (req, res) => {
+  const serviceSubcategories = await ServiceSubcategory.find({
+    serviceCategory: req.params.id,
+  })
+    .populate("serviceCategory")
+    .sort({ name: 1 });
+  res.send(serviceSubcategories);
 });
 
 router.post("/", async (req, res) => {

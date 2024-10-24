@@ -4,7 +4,9 @@ import ServiceSubcategory from "../models/ServiceSubcategory";
 const router = Router();
 
 router.get("/", async (_req, res) => {
-  const serviceSubcategories = await ServiceSubcategory.find({});
+  const serviceSubcategories = await ServiceSubcategory.find({}).sort({
+    name: 1,
+  });
   res.send(serviceSubcategories);
 });
 
