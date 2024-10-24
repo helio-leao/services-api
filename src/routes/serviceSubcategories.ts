@@ -18,4 +18,23 @@ router.post("/", async (req, res) => {
   res.send(savedServiceSubcategory);
 });
 
+router.patch("/:id", async (req, res) => {
+  const serviceSubcategory = await ServiceSubcategory.findById(req.params.id);
+
+  if (!serviceSubcategory) {
+    res.sendStatus(404);
+    return;
+  }
+
+  if (req.body.name) {
+    serviceSubcategory.name = req.body.name;
+  }
+  if (req.body.serviceCategory) {
+    serviceSubcategory.serviceCategory = req.body.serviceCategory;
+  }
+
+  const updatedServiceSubcategory = await serviceSubcategory.save();
+  res.send(updatedServiceSubcategory);
+});
+
 export default router;
