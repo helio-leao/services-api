@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
   },
   address: {
     street: String,
+    district: String,
     number: String,
     complement: String,
     zip: String,

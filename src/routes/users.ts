@@ -11,6 +11,24 @@ router.get("/", async (_req, res) => {
 router.post("/", async (req, res) => {
   const newUser = new User({
     name: req.body.name,
+    gender: req.body.gender,
+    contact: {
+      celphone: req.body.contact.celphone,
+      email: req.body.contact.email,
+    },
+    address: {
+      street: req.body.address.street,
+      district: req.body.address.district,
+      number: req.body.address.number,
+      complement: req.body.address.complement,
+      zip: req.body.address.zip,
+    },
+    service: {
+      title: req.body.service.title,
+      description: req.body.service.description,
+      category: req.body.service.category,
+      subcategory: req.body.service.subcategory,
+    },
   });
 
   const savedUser = await newUser.save();
