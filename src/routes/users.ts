@@ -35,4 +35,12 @@ router.post("/", async (req, res) => {
   res.send(savedUser);
 });
 
+router.get("/:id", async (req, res) => {
+  const user = await User.findById(req.params.id).populate([
+    "service.category",
+    "service.subcategory",
+  ]);
+  res.send(user);
+});
+
 export default router;
