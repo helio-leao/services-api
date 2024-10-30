@@ -90,6 +90,53 @@ router.patch("/:id", async (req, res) => {
   res.send(updatedUser);
 });
 
+router.get("/search/:searchString", async (req, res) => {
+  const regex = new RegExp(req.params.searchString, "i");
+
+  const user = await User.aggregate([
+    {
+      $lookup: {
+        from: "servicecategories",
+        localField: "service.category",
+        foreignField: "_id",
+        as: "service.category",
+      },
+    },
+    {
+      $lookup: {
+        from: "servicesubcategories",
+        localField: "service.subcategory",
+        foreignField: "_id",
+        as: "service.subcategory",
+      },
+    },
+    {
+      $unwind: {
+        path: "$service.category",
+      },
+    },
+    {
+      $unwind: {
+        path: "$service.subcategory",
+      },
+    },
+    {
+      $match: {
+        $or: [
+          {
+            "service.category.name": { $regex: regex },
+          },
+          {
+            "service.subcategory.name": { $regex: regex },
+          },
+        ],
+      },
+    },
+  ]);
+
+  res.send(user);
+});
+
 router.get("/:id", async (req, res) => {
   const user = await User.findById(req.params.id).populate([
     "service.category",
