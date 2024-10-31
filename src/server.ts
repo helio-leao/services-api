@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import authRouter from "./routes/auth";
 import usersRouter from "./routes/users";
 import serviceCategoriesRouter from "./routes/serviceCategories";
 import serviceSubcategoriesRouter from "./routes/serviceSubcategories";
@@ -12,6 +13,7 @@ mongoose
   .then(() => console.log("Connected to database"))
   .catch((error) => console.error(error));
 
+app.use("/auth", authRouter);
 app.use("/users", usersRouter);
 app.use("/serviceCategories", serviceCategoriesRouter);
 app.use("/serviceSubcategories", serviceSubcategoriesRouter);

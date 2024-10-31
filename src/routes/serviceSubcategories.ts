@@ -7,7 +7,7 @@ router.get("/", async (_req, res) => {
   const serviceSubcategories = await ServiceSubcategory.find({}).sort({
     name: 1,
   });
-  res.send(serviceSubcategories);
+  res.json(serviceSubcategories);
 });
 
 router.post("/", async (req, res) => {
@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
   });
 
   const savedServiceSubcategory = await newServiceSubcategory.save();
-  res.send(savedServiceSubcategory);
+  res.json(savedServiceSubcategory);
 });
 
 router.patch("/:id", async (req, res) => {
@@ -36,7 +36,7 @@ router.patch("/:id", async (req, res) => {
   }
 
   const updatedServiceSubcategory = await serviceSubcategory.save();
-  res.send(updatedServiceSubcategory);
+  res.json(updatedServiceSubcategory);
 });
 
 export default router;

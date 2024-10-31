@@ -8,7 +8,7 @@ router.get("/", async (_req, res) => {
     "service.category",
     "service.subcategory",
   ]);
-  res.send(users);
+  res.json(users);
 });
 
 router.post("/", async (req, res) => {
@@ -35,7 +35,7 @@ router.post("/", async (req, res) => {
   });
 
   const savedUser = await newUser.save();
-  res.send(savedUser);
+  res.json(savedUser);
 });
 
 router.patch("/:id", async (req, res) => {
@@ -87,7 +87,7 @@ router.patch("/:id", async (req, res) => {
   }
 
   const updatedUser = await user.save();
-  res.send(updatedUser);
+  res.json(updatedUser);
 });
 
 router.get("/search/:searchString", async (req, res) => {
@@ -134,7 +134,7 @@ router.get("/search/:searchString", async (req, res) => {
     },
   ]);
 
-  res.send(user);
+  res.json(user);
 });
 
 router.get("/:id", async (req, res) => {
@@ -142,7 +142,7 @@ router.get("/:id", async (req, res) => {
     "service.category",
     "service.subcategory",
   ]);
-  res.send(user);
+  res.json(user);
 });
 
 export default router;
