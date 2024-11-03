@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
     name: req.body.name,
     gender: req.body.gender,
     contact: {
-      celphone: req.body.contact.celphone,
+      cellphone: req.body.contact.cellphone,
       email: req.body.contact.email,
     },
     address: {
@@ -52,8 +52,8 @@ router.patch("/:id", async (req, res) => {
   if (req.body.gender) {
     user.gender = req.body.gender;
   }
-  if (req.body.contact.celphone) {
-    user.contact.celphone = req.body.contact.celphone;
+  if (req.body.contact.cellphone) {
+    user.contact.cellphone = req.body.contact.cellphone;
   }
   if (req.body.contact.email) {
     user.contact.email = req.body.contact.email;
