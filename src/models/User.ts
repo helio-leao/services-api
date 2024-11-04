@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema(
       category: { type: mongoose.Types.ObjectId, ref: "ServiceCategory" },
       subcategory: { type: mongoose.Types.ObjectId, ref: "ServiceSubcategory" },
     },
+    verified: { type: Boolean, default: false },
   },
   {
     timestamps: true,

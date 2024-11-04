@@ -52,38 +52,41 @@ router.patch("/:id", async (req, res) => {
   if (req.body.gender) {
     user.gender = req.body.gender;
   }
-  if (req.body.contact.cellphone) {
-    user.contact.cellphone = req.body.contact.cellphone;
+  if (req.body.contact?.cellphone) {
+    user.contact!.cellphone = req.body.contact.cellphone;
   }
-  if (req.body.contact.email) {
+  if (req.body.contact?.email) {
     user.contact.email = req.body.contact.email;
   }
-  if (req.body.address.street) {
+  if (req.body.address?.street) {
     user.address.street = req.body.address.street;
   }
-  if (req.body.address.district) {
+  if (req.body.address?.district) {
     user.address.district = req.body.address.district;
   }
-  if (req.body.address.number) {
+  if (req.body.address?.number) {
     user.address.number = req.body.address.number;
   }
-  if (req.body.address.complement) {
+  if (req.body.address?.complement) {
     user.address.complement = req.body.address.complement;
   }
-  if (req.body.address.zip) {
+  if (req.body.address?.zip) {
     user.address.zip = req.body.address.zip;
   }
-  if (req.body.service.title) {
+  if (req.body.service?.title) {
     user.service.title = req.body.service.title;
   }
-  if (req.body.service.description) {
+  if (req.body.service?.description) {
     user.service.description = req.body.service.description;
   }
-  if (req.body.service.category) {
+  if (req.body.service?.category) {
     user.service.category = req.body.service.category;
   }
-  if (req.body.service.subcategory) {
+  if (req.body.service?.subcategory) {
     user.service.subcategory = req.body.service.subcategory;
+  }
+  if (req.body.verified) {
+    user.verified = req.body.verified;
   }
 
   const updatedUser = await user.save();

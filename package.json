@@ -13,7 +13,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.21.1",
-    "mongoose": "^8.7.2"
+    "mongoose": "^8.7.2",
+    "textflow.js": "^0.1.4"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
