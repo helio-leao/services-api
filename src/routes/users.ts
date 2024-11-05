@@ -53,7 +53,7 @@ router.patch("/:id", async (req, res) => {
     user.gender = req.body.gender;
   }
   if (req.body.contact?.cellphone) {
-    user.contact!.cellphone = req.body.contact.cellphone;
+    user.contact.cellphone = req.body.contact.cellphone;
   }
   if (req.body.contact?.email) {
     user.contact.email = req.body.contact.email;
@@ -84,9 +84,6 @@ router.patch("/:id", async (req, res) => {
   }
   if (req.body.service?.subcategory) {
     user.service.subcategory = req.body.service.subcategory;
-  }
-  if (req.body.verified) {
-    user.verified = req.body.verified;
   }
 
   const updatedUser = await user.save();
