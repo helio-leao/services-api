@@ -11,33 +11,6 @@ router.get("/", async (_req, res) => {
   res.json(users);
 });
 
-router.post("/", async (req, res) => {
-  const newUser = new User({
-    name: req.body.name,
-    gender: req.body.gender,
-    contact: {
-      cellphone: req.body.contact.cellphone,
-      email: req.body.contact.email,
-    },
-    address: {
-      street: req.body.address.street,
-      district: req.body.address.district,
-      number: req.body.address.number,
-      complement: req.body.address.complement,
-      zip: req.body.address.zip,
-    },
-    service: {
-      title: req.body.service.title,
-      description: req.body.service.description,
-      category: req.body.service.category,
-      subcategory: req.body.service.subcategory,
-    },
-  });
-
-  const savedUser = await newUser.save();
-  res.json(savedUser);
-});
-
 router.patch("/:id", async (req, res) => {
   const user = await User.findById(req.params.id);
 

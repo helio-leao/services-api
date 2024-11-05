@@ -6,12 +6,58 @@ const router = Router();
 
 textflow.useKey(process.env.TEXTFLOW_API_KEY);
 
-router.post("/signin", (req, res) => {
-  res.json({ message: "todo: signin" });
+router.post("/signin", async (req, res) => {
+  const { cellphone, code } = req.body;
+
+  // NOTE: verify if user exists and already verified
+  const user = await User.findOne({ "contact.cellphone": cellphone });
+
+  if (!user) {
+    res.status(404).json({ ok: false, message: "User not found." });
+    return;
+  }
+  if (!user.verified) {
+    res.status(400).json({ ok: false, message: "User not verified." });
+    return;
+  }
+
+  // NOTE: verify cellphone number via SMS
+  let result = await textflow.verifyCode(`+55${cellphone}`, code);
+
+  if (!result.valid) {
+    res.status(400).json(result);
+    return;
+  }
+
+  // NOTE: send back user data
+  res.json(user);
 });
 
-router.post("/signup", (req, res) => {
-  res.json({ message: "todo: signup" });
+router.post("/signup", async (req, res) => {
+  const newUser = new User({
+    name: req.body.name,
+    gender: req.body.gender,
+    contact: {
+      cellphone: req.body.contact.cellphone,
+      email: req.body.contact.email,
+    },
+    address: {
+      street: req.body.address.street,
+      district: req.body.address.district,
+      number: req.body.address.number,
+      complement: req.body.address.complement,
+      zip: req.body.address.zip,
+    },
+    service: {
+      title: req.body.service.title,
+      description: req.body.service.description,
+      category: req.body.service.category,
+      subcategory: req.body.service.subcategory,
+    },
+  });
+
+  const savedUser = await newUser.save();
+  res.json(savedUser);
 });
 
 router.post("/send-sms-verification", async (req, res) => {
