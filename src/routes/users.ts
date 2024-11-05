@@ -118,4 +118,10 @@ router.get("/:id", async (req, res) => {
   res.json(user);
 });
 
+router.get("/searchByCellphone/:cellphone", async (req, res) => {
+  const { cellphone } = req.params;
+  const user = await User.findOne({ "contact.cellphone": cellphone });
+  res.json(user);
+});
+
 export default router;
