@@ -4,7 +4,7 @@ import User from "../models/User";
 const router = Router();
 
 router.get("/", async (_req, res) => {
-  const users = await User.find({}).populate([
+  const users = await User.find({ verified: true }).populate([
     "service.category",
     "service.subcategory",
   ]);
