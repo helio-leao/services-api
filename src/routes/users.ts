@@ -58,6 +58,12 @@ router.patch("/:id", async (req, res) => {
   if (req.body.service?.subcategory) {
     user.service.subcategory = req.body.service.subcategory;
   }
+  if (req.body.picture?.base64) {
+    user.picture.base64 = req.body.picture.base64;
+  }
+  if (req.body.picture?.mimeType) {
+    user.picture.mimeType = req.body.picture.mimeType;
+  }
 
   const updatedUser = await user.save();
   res.json(updatedUser);

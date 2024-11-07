@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema(
       category: { type: mongoose.Types.ObjectId, ref: "ServiceCategory" },
       subcategory: { type: mongoose.Types.ObjectId, ref: "ServiceSubcategory" },
     },
+    picture: {
+      base64: String,
+      mimeType: String,
+    },
     verified: { type: Boolean, default: false },
   },
   {
