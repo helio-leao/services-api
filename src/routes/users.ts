@@ -98,12 +98,22 @@ router.get("/search/:searchString", async (req, res) => {
     },
     {
       $match: {
-        $or: [
+        $and: [
           {
-            "service.category.name": { $regex: regex },
+            $or: [
+              {
+                "service.category.name": { $regex: regex },
+              },
+              {
+                "service.subcategory.name": { $regex: regex },
+              },
+              {
+                "service.description": { $regex: regex },
+              },
+            ],
           },
           {
-            "service.subcategory.name": { $regex: regex },
+            verified: true,
           },
         ],
       },
