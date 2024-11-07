@@ -49,7 +49,6 @@ router.post("/signup", async (req, res) => {
       zip: req.body.address.zip,
     },
     service: {
-      title: req.body.service.title,
       description: req.body.service.description,
       category: req.body.service.category,
       subcategory: req.body.service.subcategory,

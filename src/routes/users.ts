@@ -46,9 +46,6 @@ router.patch("/:id", async (req, res) => {
   if (req.body.address?.zip) {
     user.address.zip = req.body.address.zip;
   }
-  if (req.body.service?.title) {
-    user.service.title = req.body.service.title;
-  }
   if (req.body.service?.description) {
     user.service.description = req.body.service.description;
   }

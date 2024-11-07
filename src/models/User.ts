@@ -16,7 +16,6 @@ const userSchema = new mongoose.Schema(
       zip: String,
     },
     service: {
-      title: String,
       description: String,
       category: { type: mongoose.Types.ObjectId, ref: "ServiceCategory" },
       subcategory: { type: mongoose.Types.ObjectId, ref: "ServiceSubcategory" },
