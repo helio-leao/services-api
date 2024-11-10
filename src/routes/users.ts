@@ -21,7 +21,7 @@ router.patch("/:id", async (req, res) => {
     const user = await User.findById(req.params.id);
 
     if (!user) {
-      res.sendStatus(404);
+      res.status(404).json({ ok: false, message: "User not found." });
       return;
     }
 
@@ -32,40 +32,40 @@ router.patch("/:id", async (req, res) => {
       user.gender = req.body.gender;
     }
     if (req.body.contact?.cellphone) {
-      user.contact.cellphone = req.body.contact.cellphone;
+      user.contact!.cellphone = req.body.contact.cellphone;
     }
     if (req.body.contact?.email) {
-      user.contact.email = req.body.contact.email;
+      user.contact!.email = req.body.contact.email;
     }
     if (req.body.address?.street) {
-      user.address.street = req.body.address.street;
+      user.address!.street = req.body.address.street;
     }
     if (req.body.address?.district) {
-      user.address.district = req.body.address.district;
+      user.address!.district = req.body.address.district;
     }
     if (req.body.address?.number) {
-      user.address.number = req.body.address.number;
+      user.address!.number = req.body.address.number;
     }
     if (req.body.address?.complement) {
-      user.address.complement = req.body.address.complement;
+      user.address!.complement = req.body.address.complement;
     }
     if (req.body.address?.zip) {
-      user.address.zip = req.body.address.zip;
+      user.address!.zip = req.body.address.zip;
     }
     if (req.body.service?.description) {
-      user.service.description = req.body.service.description;
+      user.service!.description = req.body.service.description;
     }
     if (req.body.service?.category) {
-      user.service.category = req.body.service.category;
+      user.service!.category = req.body.service.category;
     }
     if (req.body.service?.subcategory) {
-      user.service.subcategory = req.body.service.subcategory;
+      user.service!.subcategory = req.body.service.subcategory;
     }
     if (req.body.picture?.base64) {
-      user.picture.base64 = req.body.picture.base64;
+      user.picture!.base64 = req.body.picture.base64;
     }
     if (req.body.picture?.mimeType) {
-      user.picture.mimeType = req.body.picture.mimeType;
+      user.picture!.mimeType = req.body.picture.mimeType;
     }
 
     const updatedUser = await user.save();

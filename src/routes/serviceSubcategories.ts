@@ -35,7 +35,9 @@ router.patch("/:id", async (req, res) => {
     const serviceSubcategory = await ServiceSubcategory.findById(req.params.id);
 
     if (!serviceSubcategory) {
-      res.sendStatus(404);
+      res
+        .status(404)
+        .json({ ok: false, message: "Service Subcategory not found." });
       return;
     }
 

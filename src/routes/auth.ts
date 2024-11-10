@@ -81,7 +81,7 @@ router.post("/send-sms-verification", async (req, res) => {
 
     if (!result.ok) {
       res
-        .sendStatus(400)
+        .status(400)
         .json({ ok: false, message: "It was not possible to send the code." });
       return;
     }
