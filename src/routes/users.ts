@@ -77,7 +77,7 @@ router.patch("/:id", async (req, res) => {
 });
 
 router.get("/search/:query", async (req, res) => {
-  const regex = new RegExp(req.params.query, "i");
+  const regex = getDiacriticCaseInsensitiveRegex(req.params.query);
 
   try {
     const user = await User.aggregate([
@@ -161,5 +161,21 @@ router.get("/searchByCellphone/:cellphone", async (req, res) => {
     res.sendStatus(500);
   }
 });
+
+function getDiacriticCaseInsensitiveRegex(string: string) {
+  string = string
+    .replace(/a/g, "[a,á,à,ä,â]")
+    .replace(/A/g, "[A,a,á,à,ä,â]")
+    .replace(/e/g, "[e,é,ë,è]")
+    .replace(/E/g, "[E,e,é,ë,è]")
+    .replace(/i/g, "[i,í,ï,ì]")
+    .replace(/I/g, "[I,i,í,ï,ì]")
+    .replace(/o/g, "[o,ó,ö,ò]")
+    .replace(/O/g, "[O,o,ó,ö,ò]")
+    .replace(/u/g, "[u,ü,ú,ù]")
+    .replace(/U/g, "[U,u,ü,ú,ù]");
+
+  return new RegExp(string, "i");
+}
 
 export default router;
