@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema(
     },
     service: {
       description: String,
-      price: String,
+      price: Number,
       category: { type: mongoose.Types.ObjectId, ref: "ServiceCategory" },
       subcategory: { type: mongoose.Types.ObjectId, ref: "ServiceSubcategory" },
     },
