@@ -18,7 +18,10 @@ router.get("/", async (_req, res) => {
 
 router.patch("/:id", async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id).populate([
+      "service.category",
+      "service.subcategory",
+    ]);
 
     if (!user) {
       res.status(404).json({ ok: false, message: "User not found." });
