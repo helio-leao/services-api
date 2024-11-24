@@ -58,7 +58,13 @@ router.patch("/:id", async (req, res) => {
     if (req.body.service?.description) {
       user.service!.description = req.body.service.description;
     }
-    user.service!.price = req.body.service?.price; // NOTE: can accept number or undefined which will unset the field on the database
+
+    // NOTE: can accept a number or undefined
+    // "req.body.service?.price" actually comes null if not set, hence explicit undefined
+    // null would be set in the price field in the database. undefined deletes (unset) the field
+    // null or unset would have same effect on the front-end as is, but unsetting it was the choice
+    user.service!.price = req.body.service?.price ?? undefined;
+
     if (req.body.service?.category) {
       user.service!.category = req.body.service.category;
     }
