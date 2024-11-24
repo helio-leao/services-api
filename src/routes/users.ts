@@ -58,9 +58,7 @@ router.patch("/:id", async (req, res) => {
     if (req.body.service?.description) {
       user.service!.description = req.body.service.description;
     }
-    if (req.body.service?.price) {
-      user.service!.price = req.body.service.price;
-    }
+    user.service!.price = req.body.service?.price; // NOTE: can accept number or undefined which will unset the field on the database
     if (req.body.service?.category) {
       user.service!.category = req.body.service.category;
     }
