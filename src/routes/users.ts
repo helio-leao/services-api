@@ -16,6 +16,7 @@ router.get("/", async (_req, res) => {
   }
 });
 
+// Note: price can be number or undefined. unless the intention is to delete the value from the database, price must be set
 router.patch("/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id).populate([
@@ -58,6 +59,12 @@ router.patch("/:id", async (req, res) => {
     if (req.body.service?.description) {
       user.service!.description = req.body.service.description;
     }
+    if (req.body.service?.category) {
+      user.service!.category = req.body.service.category;
+    }
+    if (req.body.service?.subcategory) {
+      user.service!.subcategory = req.body.service.subcategory;
+    }
 
     // NOTE: can accept a number or undefined
     // "req.body.service?.price" actually comes null if not set, hence explicit undefined
@@ -65,12 +72,26 @@ router.patch("/:id", async (req, res) => {
     // null or unset would have same effect on the front-end as is, but unsetting it was the choice
     user.service!.price = req.body.service?.price ?? undefined;
 
-    if (req.body.service?.category) {
-      user.service!.category = req.body.service.category;
+    const updatedUser = await user.save();
+    res.json(updatedUser);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+});
+
+router.patch("/:id/picture", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).populate([
+      "service.category",
+      "service.subcategory",
+    ]);
+
+    if (!user) {
+      res.status(404).json({ ok: false, message: "User not found." });
+      return;
     }
-    if (req.body.service?.subcategory) {
-      user.service!.subcategory = req.body.service.subcategory;
-    }
+
     if (req.body.picture?.base64) {
       user.picture!.base64 = req.body.picture.base64;
     }
