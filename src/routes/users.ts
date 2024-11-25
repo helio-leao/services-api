@@ -16,7 +16,7 @@ router.get("/", async (_req, res) => {
   }
 });
 
-// Note: price can be number or undefined. unless the intention is to delete the value from the database, price must be set
+// Note: price can be number or undefined. undefined deletes(unset) the field with the value from the database
 router.patch("/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id).populate([
@@ -66,11 +66,7 @@ router.patch("/:id", async (req, res) => {
       user.service!.subcategory = req.body.service.subcategory;
     }
 
-    // NOTE: can accept a number or undefined
-    // "req.body.service?.price" actually comes null if not set, hence explicit undefined
-    // null would be set in the price field in the database. undefined deletes (unset) the field
-    // null or unset would have same effect on the front-end as is, but unsetting it was the choice
-    user.service!.price = req.body.service?.price ?? undefined;
+    user.service!.price = req.body.service?.price;
 
     const updatedUser = await user.save();
     res.json(updatedUser);
