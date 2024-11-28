@@ -1,6 +1,6 @@
 import { Router } from "express";
 import User from "../models/User";
-const textflow = require("textflow.js");
+import textflow from "textflow.js";
 
 const router = Router();
 
@@ -78,7 +78,10 @@ router.post("/send-sms-verification", async (req, res) => {
       return;
     }
 
-    const result = await textflow.sendVerificationSMS(`+55${cellphone}`);
+    // NOTE: default expiration time is 10 minutes
+    const result = await textflow.sendVerificationSMS(`+55${cellphone}`, {
+      service_name: "No Serviço",
+    });
 
     if (!result.ok) {
       res
