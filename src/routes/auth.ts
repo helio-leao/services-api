@@ -80,7 +80,7 @@ router.post("/send-sms-verification", async (req, res) => {
 
     // NOTE: default expiration time is 10 minutes
     const result = await textflow.sendVerificationSMS(`+55${cellphone}`, {
-      service_name: "No Serviço",
+      service_name: "No Servico",
     });
 
     if (!result.ok) {
