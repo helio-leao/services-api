@@ -5,10 +5,10 @@ const router = Router();
 
 router.get("/", async (_req, res) => {
   try {
-    const users = await User.find({ verified: true }).populate([
-      "service.category",
-      "service.subcategory",
-    ]);
+    const users = await User.find({
+      verified: true,
+      service: { $ne: null },
+    }).populate(["service.category", "service.subcategory"]);
     res.json(users);
   } catch (error) {
     console.error(error);
@@ -56,17 +56,20 @@ router.patch("/:id", async (req, res) => {
     if (req.body.address?.zip) {
       user.address!.zip = req.body.address.zip;
     }
-    if (req.body.service?.description) {
-      user.service!.description = req.body.service.description;
+    if (req.body.service) {
+      if (req.body.service.description) {
+        user.service.description = req.body.service.description;
+      }
+      if (req.body.service.category) {
+        user.service.category = req.body.service.category;
+      }
+      if (req.body.service.subcategory) {
+        user.service.subcategory = req.body.service.subcategory;
+      }
+      if (req.body.service.price) {
+        user.service.price = req.body.service.price;
+      }
     }
-    if (req.body.service?.category) {
-      user.service!.category = req.body.service.category;
-    }
-    if (req.body.service?.subcategory) {
-      user.service!.subcategory = req.body.service.subcategory;
-    }
-
-    user.service!.price = req.body.service?.price;
 
     const updatedUser = await user.save();
     res.json(updatedUser);
