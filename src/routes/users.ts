@@ -155,6 +155,7 @@ router.get("/search/:query", async (req, res) => {
             },
             {
               verified: true,
+              service: { $ne: null },
             },
           ],
         },
