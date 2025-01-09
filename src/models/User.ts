@@ -16,10 +16,17 @@ const userSchema = new mongoose.Schema(
       zip: String,
     },
     service: {
-      description: String,
-      price: Number,
-      category: { type: mongoose.Types.ObjectId, ref: "ServiceCategory" },
-      subcategory: { type: mongoose.Types.ObjectId, ref: "ServiceSubcategory" },
+      type: {
+        description: String,
+        price: Number,
+        category: { type: mongoose.Types.ObjectId, ref: "ServiceCategory" },
+        subcategory: {
+          type: mongoose.Types.ObjectId,
+          ref: "ServiceSubcategory",
+        },
+      },
+      _id: false,
+      default: null,
     },
     picture: {
       base64: String,

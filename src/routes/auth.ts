@@ -50,12 +50,14 @@ router.post("/signup", async (req, res) => {
       complement: req.body.address.complement,
       zip: req.body.address.zip,
     },
-    service: {
-      description: req.body.service.description,
-      price: req.body.service.price,
-      category: req.body.service.category,
-      subcategory: req.body.service.subcategory,
-    },
+    service: req.body.service
+      ? {
+          description: req.body.service.description,
+          price: req.body.service.price,
+          category: req.body.service.category,
+          subcategory: req.body.service.subcategory,
+        }
+      : null,
   });
 
   try {
