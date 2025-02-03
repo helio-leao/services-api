@@ -38,26 +38,26 @@ router.post("/signin", async (req, res) => {
 router.post("/signup", async (req, res) => {
   const newUser = new User({
     name: req.body.name,
-    gender: req.body.gender,
+    // gender: req.body.gender,
     contact: {
       cellphone: req.body.contact.cellphone,
       email: req.body.contact.email,
     },
-    address: {
-      street: req.body.address.street,
-      district: req.body.address.district,
-      number: req.body.address.number,
-      complement: req.body.address.complement,
-      zip: req.body.address.zip,
-    },
-    service: req.body.service
-      ? {
-          description: req.body.service.description,
-          price: req.body.service.price,
-          category: req.body.service.category,
-          subcategory: req.body.service.subcategory,
-        }
-      : null,
+    // address: {
+    //   street: req.body.address.street,
+    //   district: req.body.address.district,
+    //   number: req.body.address.number,
+    //   complement: req.body.address.complement,
+    //   zip: req.body.address.zip,
+    // },
+    // service: req.body.service
+    //   ? {
+    //       description: req.body.service.description,
+    //       price: req.body.service.price,
+    //       category: req.body.service.category,
+    //       subcategory: req.body.service.subcategory,
+    //     }
+    //   : null,
   });
 
   try {
